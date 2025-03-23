@@ -52,7 +52,7 @@ public class Main {
         Student student = new Student(name, gradYear);
 
         // Create a randomized ID for the student
-        int studentID = student.generatestudentId(student);
+        int studentID = student.generatestudentID();
         System.out.print("Student Id: "+studentID);
         // test to see what the student id is System.out.print(studentID);
 
@@ -191,22 +191,18 @@ public class Main {
         //put in variables before the code starts for teacher video
 
         Student student1 = new Student("Samuel Ahianyo", 2026);
-        int samID = student1.generatestudentId(student1);
+        int samID = student1.generatestudentID();
         System.out.println(samID);
         Student student2 = new Student("Jishnu Satapathy", 2027);
-        int jishnuID = student2.generatestudentId(student2);
+        int jishnuID = student2.generatestudentID();
         System.out.println(jishnuID);
         Student student3 = new Student("Matthew Niesntedt", 2026);
-        int matthewID = student3.generatestudentId(student3);
+        int matthewID = student3.generatestudentID();
         System.out.println(matthewID);
         Student student4 = new Student("Nikola Momtchev", 2025);
-        int nikolaID = student4.generatestudentId(student4);
+        int nikolaID = student4.generatestudentID();
         System.out.println(nikolaID);
         
-
-         
-
-
 
         Scanner reader = new Scanner(System.in);
         System.out.println("Welcome Teacher! What is your full name?");
@@ -307,12 +303,14 @@ public class Main {
         fileReader.close();
         return newClass;
     }
+
+    
     public static Student findStudentById(int studentID) {
-    // This is a placeholder. Replace it with your actual logic to retrieve a student.
-    // For example, you might have a list of students or a database query.
-    if (studentID == 12345) {
-        return new Student("John Doe", 2025); // Example student
+    for (Student student : Student.studentList) {
+        if (student.getStudentID() == studentID) {
+            return student;
+        }
     }
-    return null;
+    return null; //return null if there is no student
 }
 }

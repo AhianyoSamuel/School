@@ -6,8 +6,13 @@ public class Student {
     public String name;
     public int year;
     public int grade;
+    public int studentID;
     public ArrayList<String> attendanceRecords = new ArrayList<String>();
     Schedule sch = new Schedule();
+
+
+    public static ArrayList<Student> studentList = new ArrayList<>();
+    
 
     public Student(String newName, int gradYear) {
         name = newName;
@@ -32,15 +37,20 @@ public class Student {
                 grade = 0;
                 break;
         }
+        this.studentID = generatestudentID();
+        studentList.add(this);
     }
     public int getYear() {
         return grade;
     }
 
-    public int generatestudentId(Student user) {
+    public int generatestudentID(){
         Random random = new Random();
-        int userId = random.nextInt(2000);
-        return userId;
+        return random.nextInt(2000);
+    }
+
+    public int getStudentID(){
+        return studentID;
     }
 
     
