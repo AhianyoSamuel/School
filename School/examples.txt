@@ -1,0 +1,49 @@
+$MATTHEW NIENSTEDT$
+
+int[] terms1 = { 1, 2 ,3};
+int[] blocks1 = { 1, 1, 1};
+Course c1 = new Course("AP United States History", 2, terms1, blocks1);
+int[] terms2 = { 2, 3, 4 };
+int[] blocks2 = { 2, 2, 2 };
+Course c2 = new Course("Wind Ensemble", 2, terms2, blocks2);
+int[] terms3 = { 3, 4 };
+int[] blocks3 = { 3, 3 };
+Course c3 = new Course("AP Computer Science", 2, terms3, blocks3);
+int[] terms4 = { 3, 4 };
+int[] blocks4 = { 4, 4 };
+Course c4 = new Course("Enriched Chemistry", 2, terms4, blocks4);
+int[] terms5 = { 1,2};
+int[] blocks5 = { 4,4 };
+Course c5 = new Course("Accellerated Precalculus", 2, terms5, blocks5);
+int[] terms6 = { 1, 2 };
+int[] blocks6 = { 3, 3 };
+Course c6 = new Course("American Literature", 2, terms6, blocks6);
+int[] terms7 = { 1 };
+int[] blocks7 = { 2 };
+Course c7 = new Course("Marching Band", 2, terms7, blocks7);
+int[] terms8 = { 4 };
+int[] blocks8 = { 1 };
+Course c8 = new Course("Music Production", 2, terms8, blocks8);
+
+student.sch.addCourse(c1);
+student.sch.addCourse(c2);
+student.sch.addCourse(c3);
+student.sch.addCourse(c4);
+student.sch.addCourse(c5);
+student.sch.addCourse(c6);
+student.sch.addCourse(c7);
+student.sch.addCourse(c8);
+student.sch.addGrade(97,2,1,1);
+student.sch.addGrade(98,2,1,2);
+student.sch.addGrade(95,2,1,3);
+student.sch.addGrade(96,2,1,4);
+student.sch.addGrade(95,2,2,1);
+student.sch.addGrade(99,2,2,2);
+student.sch.addGrade(93,2,2,3);
+student.sch.addGrade(93,2,2,4);
+student.sch.addGrade(94,2,3,1);
+student.sch.addGrade(99,2,3,2);
+student.sch.addGrade(98,2,3,3);
+student.sch.addGrade(95,2,3,4);
+
+%END%

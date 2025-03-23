@@ -1,0 +1,37 @@
+[1]AP US History\3                      |11             #
+[2]AP Computer Science\2                |9,10,11,12     #
+[3]Wind Ensemble\3                      |10,11,12       #
+[4]Marching Band\1                      |10,11,12       #
+[5]Music Production\1                   |9,10,11,12     #
+[6]Woodworking\1                        |9,10,11,12     #
+[7]AP Calculus AB\2                     |11,12          #10,11
+[8]AP Calculus CD\2                     |11,12          #7
+[9]Precalculus\2                        |10,11,12       #25,26
+[10]Accellerated Precalculus\2          |10,11,12       #26,26
+[11]Chemistry\2                         |10,11,12       #
+[12]Enriched Chemistry\2                |10,11,12       #
+[13]AP Fent\4                           |9,10,11,12     #
+[14]Applied Robotics\2                  |9,10,11,12     #
+[15]American Literature\2               |11             #
+[16]British Literature\2                |11             #
+[17]Composition for College\2           |11             #
+[18]Intro to Computer Programming\1     |9,10,11,12     #
+[19]AP European History\3               |10             #
+[20]AP Biology\3                        |10             #
+[21]World History\2                     |10             #
+[22]Biology\2                           |10             #
+[23]English 10\2                        |10             #
+[24]Honors English 10\2                 |10             #
+[25]Algebra 2\2                         |10             #27,28
+[26]Accellerated Algebra 2\2            |10             #27,28
+[27]Geometry\2                          |9              #
+[28]Accellerated Geometry\2             |9              #
+[29]Spanish 1\2                         |9,10,11,12     #
+[30]Spanish 2\2                         |10,11,12       #29
+[31]Spanish 3\2                         |11,12          #30
+[32]AP Spanish\2                        |12             #31
+[33]French 1\2                          |9,10,11,12     #
+[34]French 2\2                          |10,11,12       #33
+[35]French 3\2                          |11,12          #34
+[36]AP French\2                         |12             #35
+END
