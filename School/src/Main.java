@@ -24,7 +24,7 @@ public class Main {
                     printWithLines("Please input the teacher code");
                     int codeAttempt = reader.nextInt();
                     if (codeAttempt == teacherCode) {
-                        //teacherLoop();
+                        teacherLoop();
                         RUN = false;
                     } else {
                         printWithLines("That is not the teacher code; please try again.");
@@ -192,16 +192,16 @@ public class Main {
 
         Student student1 = new Student("Samuel Ahianyo", 2026);
         int samID = student1.generatestudentId(student1);
-        System.out.print(samID);
+        System.out.println(samID);
         Student student2 = new Student("Jishnu Satapathy", 2027);
         int jishnuID = student2.generatestudentId(student2);
-        System.out.print(jishnuID);
+        System.out.println(jishnuID);
         Student student3 = new Student("Matthew Niesntedt", 2026);
         int matthewID = student3.generatestudentId(student3);
-        System.out.print(matthewID);
+        System.out.println(matthewID);
         Student student4 = new Student("Nikola Momtchev", 2025);
         int nikolaID = student4.generatestudentId(student4);
-        System.out.print(nikolaID);
+        System.out.println(nikolaID);
         
 
          
