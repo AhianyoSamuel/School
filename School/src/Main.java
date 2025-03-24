@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 //This is the main class that runs the program. It will be used to call other classes and methods.
 public class Main {
+
     static String line = "--------------------------------------";
     public static void main(String[] args) throws IOException {
         Scanner reader = new Scanner(System.in);
@@ -24,14 +25,14 @@ public class Main {
                     printWithLines("Please input the teacher code");
                     int codeAttempt = reader.nextInt();
                     if (codeAttempt == teacherCode) {
-                        //teacherLoop();
+                        teacherLoop();
                         RUN = false;
                     } else {
                         printWithLines("That is not the teacher code; please try again.");
                     }
                     break;
                 default:
-                    printWithLines("Please choose between student or teacher");
+                    printWithLines("Please choose between student or teacher"); //ERROR
                     break;
             }
         } 
@@ -51,18 +52,18 @@ public class Main {
         System.out.println(gradYear);
         Student student = new Student(name, gradYear);
 
-        // Create a randomized ID for the student
-        int studentID = student.generatestudentId(student);
-        System.out.print("Student Id: "+studentID);
         // test to see what the student id is System.out.print(studentID);
 
-        /* This a a preset for the student video
-        test the attendance system
-        student.addAttendance(studentID, "2023-09-01", "Present");
-        student.addAttendance(studentID, "2023-09-02", "Absent");
-        test the schedule system
-        
-    
+        //This a a preset for the student video
+        //test the attendance system
+
+        printWithLines("DEBUG TESTING");
+        student.addAttendance(student.getStudentID(), "2023-09-01", "Present");
+        student.addAttendance(student.getStudentID(), "2023-09-02", "Absent");
+        printWithLines("DEBUG TESTING");
+
+
+        //test the schedule system
         if (student.name.equals("Matthew Nienstedt")){
 
         int[] terms1 = { 1, 2 ,3};
@@ -112,7 +113,7 @@ public class Main {
         student.sch.addGrade(95,2,3,4);
 
         }
-        */
+        
 
 
         skibidi: 
@@ -127,52 +128,62 @@ public class Main {
                     student.sch.showSchedule(showGradesYear-9); // make it so the user enters in a grade that makes sense but we get a grade from 0-3
                     break;
                 case 2:
-                    student.displayAttendance(studentID);
+                    student.displayAttendance(student.getStudentID());
                     break;
                 case 3:
                     float gpa = student.sch.getGPA();
                     printWithLines("[GPA]   "+ gpa);
                     break;
                 case 4:
-                    //registrationLoop:
-                    printWithLines("What classes would you like to register?\n"+line+"\n[Press ENTER] to see the list of classes\n[Enter a class ID] to apply\n[Press X] to go back");
+                    printWithLines("What classes would you like to register?\n" + line + "\n[Press ENTER] to see the list of classes\n[Enter a class ID] to apply\n[Press X] to go back");
                     boolean registering = true;
-                    while(registering){  
-                        
+                    while (registering) {
                         String x = reader.nextLine();
-                        if (x.toUpperCase().equals("X")){
+                        if (x.toUpperCase().equals("X")) {
                             registering = false;
-                        }else if (x.equals("")){
+                        } else if (x.equals("")) {
                             displayClassIDs();
                         } else {
                             int classID = Integer.parseInt(x);
                             Course newClass = findCourse(classID);
-                            newClass.year = student.getYear()-9;
+
+                            // Register for the NEXT year
+                            newClass.year = student.getYear() - 9 + 1; // Increment the year by 1 for next year
                             int classLength = newClass.blocks.length;
                             boolean space = false;
-                            for (int i=0;i<4;i++){
-                                int firstEmpty = 100;
-                                for (int j=0;j<4;j++){
-                                    if (student.sch.schedule[newClass.year+1][j][i].length() < 1){
-                                        firstEmpty = j;
+
+                            //chek if there is space in the schedule
+                            for (int block = 0; block < 4; block++) { //look through blocks
+                                for (int term = 0; term <= 4 - classLength; term++) { //look through terms
+                                    boolean isSpaceAvailable = true;
+
+                                    // Check if all required slots are empty
+                                    for (int k = 0; k < classLength; k++) {
+                                        if (!student.sch.schedule[newClass.year][term + k][block].isEmpty()) {
+                                            isSpaceAvailable = false;
+                                            break;
+                                        }
+                                    }
+
+                                    // If space is available, assign terms and blocks
+                                    if (isSpaceAvailable) {
+                                        for (int k = 0; k < classLength; k++) {
+                                            newClass.terms[k] = term + k + 1;
+                                            newClass.blocks[k] = block + 1;
+                                        }
+                                        student.sch.addCourse(newClass);
+                                        space = true;
                                         break;
                                     }
                                 }
-                                if (5-firstEmpty > classLength){
-                                    for (int k=0; k<classLength; k++){
-                                        newClass.terms[k] = firstEmpty+k+1;
-                                        newClass.blocks[k] = i+1;
-                                    }
-                                    student.sch.addCourse(newClass);
-                                    space = true;
-                                    break;
-                                }
+                                if (space) break;
                             }
-                            if (space){
+
+                            if (space) {
                                 student.sch.showSchedule(newClass.year);
                                 System.out.println("Registered: " + newClass.courseName);
                             } else {
-                                System.out.println("[Error: no space in schedule]");
+                                System.out.println("[Error: no space in schedule]"); // ERROR
                                 System.out.println("[Try again]");
                             }
                         }
@@ -184,83 +195,93 @@ public class Main {
         }
         reader.close();
     }
-
-    
-     public static void teacherLoop() {
-
-        //put in variables before the code starts for teacher video
-
+ 
+    public static void teacherLoop() {
+        // Create students
         Student student1 = new Student("Samuel Ahianyo", 2026);
-        int samID = student1.generatestudentId(student1);
-        System.out.print(samID);
+        System.out.println(student1.getStudentID());
         Student student2 = new Student("Jishnu Satapathy", 2027);
-        int jishnuID = student2.generatestudentId(student2);
-        System.out.print(jishnuID);
+        System.out.println(student2.getStudentID());
         Student student3 = new Student("Matthew Niesntedt", 2026);
-        int matthewID = student3.generatestudentId(student3);
-        System.out.print(matthewID);
+        System.out.println(student3.getStudentID());
         Student student4 = new Student("Nikola Momtchev", 2025);
-        int nikolaID = student4.generatestudentId(student4);
-        System.out.print(nikolaID);
-        
-
-         
-
-
+        System.out.println(student4.getStudentID());
 
         Scanner reader = new Scanner(System.in);
-        System.out.println("Welcome Teacher! What is your full name?");
+        printWithLines("Welcome Teacher! What is your full name?");
         String teacherName = reader.nextLine();
-        System.out.println("What is your teacher ID.");
+        printWithLines("What is your teacher ID.");
         int teacherID = reader.nextInt();
 
         Teacher teacher = new Teacher(teacherName, teacherID);
         teacher.displayDetails();
 
         sigma: while (true) {
-            System.out.println("What would you like to do?\n Press 1 to enter in a students grades");
+            printWithLines("What would you like to do?\n[Press 1] to enter in a student's grades\n[Press 2] to enter in a student's attendance\n[Press 3] to end");
             int teacherChoice = reader.nextInt();
             switch (teacherChoice) {
                 case 1:
-            System.out.print("What is the student ID you are making a grade for? ");
-            int teacherInputGrade = reader.nextInt();
-            
-            // Retrieve the student object based on the ID
-            Student targetStudent = findStudentById(teacherInputGrade);
-            if (targetStudent == null) {
-                printWithLines("Student not found. Please try again.");
-                break;
-            }
+                    printWithLines("What is the student ID you are making a grade for?");
+                    int teacherIDGrade = reader.nextInt();
 
-            boolean gradeSetting = true;
-            while (gradeSetting) { //hiwer
-                printWithLines("What grade did the student get?");
-                int teacherSetGrade = reader.nextInt();
-                printWithLines("What term did the student take your class?");
-                int teacherTermGrade = reader.nextInt();
-                printWithLines("What block did the student take your class?");
-                int teacherBlockGrade = reader.nextInt();
+                    
+                    Student targetStudentGrade = findStudentById(teacherIDGrade); //get the student by using their id
+                    if (targetStudentGrade == null) {
+                        printWithLines("Student not found. Please try again."); //ERROR
+                        break;
+                    }
 
-                // Add the grade to the student's schedule
-                targetStudent.sch.addGrade(teacherSetGrade, teacherTermGrade, teacherBlockGrade, teacherID);
-                
+                    boolean gradeSetting = true;
+                    while (gradeSetting) {
+                        printWithLines("What grade did the student get?");
+                        int teacherSetGrade = reader.nextInt();
+                        printWithLines("What year did the student take this class?");
+                        int teacherYearGrade = reader.nextInt();
+                        printWithLines("What term did the student take your class?");
+                        int teacherTermGrade = reader.nextInt();
+                        printWithLines("What block did the student take your class?");
+                        int teacherBlockGrade = reader.nextInt();
 
-                printWithLines("Do you want to add another grade? [yes/no]");
-                String continueInput = reader.next();
-                gradeSetting = continueInput.equalsIgnoreCase("yes");
-            }
-            break;
-                case 4:
+                        // Add the grade to the student's schedule
+                        targetStudentGrade.sch.addGrade(teacherSetGrade, teacherYearGrade-9, teacherTermGrade, teacherBlockGrade);//include minus 9 because the year is from 0-3
+
+                        printWithLines("Do you want to add another grade? [yes/no]");
+                        String continueInput = reader.next();
+                        gradeSetting = continueInput.equalsIgnoreCase("yes");
+                    }
+                    break;
+                case 2:
+                    printWithLines("What is the student ID you are setting attendance for?");
+                    int teacherIDAttendance = reader.nextInt();
+                    reader.nextLine(); // Consume the leftover newline character
+
+                    Student targetStudentAttendance = findStudentById(teacherIDAttendance);
+                    if (targetStudentAttendance == null) {
+                        printWithLines("Student not found. Please try again."); //ERRPR
+                        break;
+                    }
+
+                    boolean attendanceSetting = true;
+                    while (attendanceSetting) {
+                        printWithLines("What date are you setting the attendance for?\nPlease Input this in the format MM-DD-YY");
+                        String teacherDateAttendance = reader.nextLine();
+                        printWithLines("What was the status of the student on this date?\nPresent | Tardy | Absent");
+                        String teacherStatusAttendance = reader.nextLine();
+
+                        targetStudentAttendance.addAttendance(teacherIDAttendance, teacherStatusAttendance, teacherDateAttendance);
+                        printWithLines("Do you want to add another attendance record? [yes/no]");
+                        String continueInput = reader.nextLine();
+                        attendanceSetting = continueInput.equalsIgnoreCase("yes");
+                    }
+                    break;
+                case 3:
                     break sigma;
             }
-            reader.close();
-        } 
+        }
     }
 
-
-
     public static void displayClassIDs()  throws IOException {
-        Scanner fileReader = new Scanner(new File("classes.txt"));
+        Scanner fileReader = new Scanner(new File("c:\\Users\\Freak\\OneDrive\\Desktop\\CompSciA\\Earthbound\\School\\School\\classes.txt"));
         String testStr = "";
         int x, y;
         System.out.println(line);
@@ -279,40 +300,41 @@ public class Main {
         fileReader.close();
     }
     public static Course findCourse(int classID)  throws IOException {
-        Scanner fileReader = new Scanner(new File("classes.txt"));
-        boolean search = true;
-        int x, y;
-        int classLength = 0;
-        String idStr, testStr; 
-        String className ="";
-        while (search){
-            testStr = fileReader.nextLine();
-            x = testStr.indexOf(']');
-            if (x != -1){
-                idStr = testStr.substring(1,x);
-                if (idStr.equals(classID+"")){
-                    search = false; 
-                    y = testStr.indexOf("\\");
-                    className = testStr.substring(x+1,y);
-                    classLength = Integer.parseInt(testStr.charAt(y+1)+"");
-                }        
-            }
-            if (testStr.equals("END")){
-                search = false;
-            }     
+        Course newClass;
+        try (Scanner fileReader = new Scanner(new File("c:\\Users\\Freak\\OneDrive\\Desktop\\CompSciA\\Earthbound\\School\\School\\classes.txt"))) {
+            boolean search = true;
+            int x, y;
+            int classLength = 0;
+            String idStr, testStr;
+            String className ="";
+            while (search){
+                testStr = fileReader.nextLine();
+                x = testStr.indexOf(']');
+                if (x != -1){
+                    idStr = testStr.substring(1,x);
+                    if (idStr.equals(classID+"")){
+                        search = false;
+                        y = testStr.indexOf("\\");
+                        className = testStr.substring(x+1,y);
+                        classLength = Integer.parseInt(testStr.charAt(y+1)+"");
+                    }
+                }
+                if (testStr.equals("END")){
+                    search = false;     
+                }
+            }   int[] terms = new int[classLength];
+            int[] blocks = new int[classLength];
+            newClass = new Course(className,-1,terms,blocks);
         }
-        int[] terms = new int[classLength];
-        int[] blocks = new int[classLength];
-        Course newClass = new Course(className,-1,terms,blocks);   
-        fileReader.close();
         return newClass;
     }
+
+    
     public static Student findStudentById(int studentID) {
-    // This is a placeholder. Replace it with your actual logic to retrieve a student.
-    // For example, you might have a list of students or a database query.
-    if (studentID == 12345) {
-        return new Student("John Doe", 2025); // Example student
+    for (Student student : Student.studentList) {
+        if (student.getStudentID() == studentID) {
+            return student;
+        }
     }
-    return null;
-}
-}
+    return null; //return null if there is no student ERROR 
+}}

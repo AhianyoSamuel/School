@@ -55,7 +55,7 @@ public class Schedule {
     }  
     public void showSchedule(int year) {
         int maxLength = 0;
-        int x = 0;
+        int x;
         System.out.println("");
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
