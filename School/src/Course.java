@@ -1,6 +1,6 @@
 //import java.util.ArrayList;
 
-//This class
+//This class creates a constructor for courses
 public class Course{
     String courseName;
     int[] blocks = new int[4];

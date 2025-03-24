@@ -181,8 +181,7 @@ public class Main {
         }
         reader.close();
     }
-
-    
+ 
     public static void teacherLoop() {
         // Create students
         Student student1 = new Student("Samuel Ahianyo", 2026);
