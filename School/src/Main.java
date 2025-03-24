@@ -195,9 +195,9 @@ public class Main {
         System.out.println(student4.getStudentID());
 
         Scanner reader = new Scanner(System.in);
-        System.out.println("Welcome Teacher! What is your full name?");
+        printWithLines("Welcome Teacher! What is your full name?");
         String teacherName = reader.nextLine();
-        System.out.println("What is your teacher ID.");
+        printWithLines("What is your teacher ID.");
         int teacherID = reader.nextInt();
 
         Teacher teacher = new Teacher(teacherName, teacherID);
@@ -208,7 +208,7 @@ public class Main {
             int teacherChoice = reader.nextInt();
             switch (teacherChoice) {
                 case 1:
-                    System.out.print("What is the student ID you are making a grade for? ");
+                    printWithLines("What is the student ID you are making a grade for?");
                     int teacherInputID = reader.nextInt();
 
                     // Retrieve the student object based on the ID
