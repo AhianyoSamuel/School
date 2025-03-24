@@ -31,7 +31,7 @@ public class Main {
                     }
                     break;
                 default:
-                    printWithLines("Please choose between student or teacher");
+                    printWithLines("Please choose between student or teacher"); //ERROR
                     break;
             }
         } 
@@ -169,7 +169,7 @@ public class Main {
                                 student.sch.showSchedule(newClass.year);
                                 System.out.println("Registered: " + newClass.courseName);
                             } else {
-                                System.out.println("[Error: no space in schedule]");
+                                System.out.println("[Error: no space in schedule]"); //ERROR 
                                 System.out.println("[Try again]");
                             }
                         }
@@ -213,7 +213,7 @@ public class Main {
                     // Retrieve the student object based on the ID
                     Student targetStudentGrade = findStudentById(teacherIDGrade);
                     if (targetStudentGrade == null) {
-                        printWithLines("Student not found. Please try again.");
+                        printWithLines("Student not found. Please try again."); //ERROR
                         break;
                     }
 
@@ -243,7 +243,7 @@ public class Main {
 
                     Student targetStudentAttendance = findStudentById(teacherIDAttendance);
                     if (targetStudentAttendance == null) {
-                        printWithLines("Student not found. Please try again.");
+                        printWithLines("Student not found. Please try again."); //ERRPR
                         break;
                     }
 
@@ -322,6 +322,6 @@ public class Main {
             return student;
         }
     }
-    return null; //return null if there is no student
+    return null; //return null if there is no student ERROR 
 }
 }

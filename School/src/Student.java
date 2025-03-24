@@ -32,7 +32,7 @@ public class Student {
                 grade = 8; // this is only here so 8th graders can sign up for their first classes
                 break;
             default:
-                grade = 0;
+                grade = 0; //ERROR 
                 break;
         }
         this.studentID = generateStudentID(); // Generate and store the student ID
@@ -70,7 +70,7 @@ public class Student {
             }
         }
         if (!recordFound) {
-            System.out.println("Attendance record not found for ID: " + id);
+            System.out.println("Attendance record not found for ID: " + id); //ERROR
         }
     }
 }
