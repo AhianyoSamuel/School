@@ -222,13 +222,15 @@ public class Main {
                     while (gradeSetting) {
                         printWithLines("What grade did the student get?");
                         int teacherSetGrade = reader.nextInt();
+                        printWithLines("What year did the student take this class?");
+                        int teacherYearGrade = reader.nextInt();
                         printWithLines("What term did the student take your class?");
                         int teacherTermGrade = reader.nextInt();
                         printWithLines("What block did the student take your class?");
                         int teacherBlockGrade = reader.nextInt();
 
                         // Add the grade to the student's schedule
-                        targetStudent.sch.addGrade(teacherSetGrade, teacherTermGrade, teacherBlockGrade, teacherID);
+                        targetStudent.sch.addGrade(teacherSetGrade, teacherYearGrade, teacherTermGrade, teacherBlockGrade);
 
                         printWithLines("Do you want to add another grade? [yes/no]");
                         String continueInput = reader.next();
