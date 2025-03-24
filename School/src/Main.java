@@ -271,7 +271,7 @@ public class Main {
     }
 
     public static void displayClassIDs()  throws IOException {
-        Scanner fileReader = new Scanner(new File("classes.txt"));
+        Scanner fileReader = new Scanner(new File("c:\\Users\\Freak\\OneDrive\\Desktop\\CompSciA\\Earthbound\\School\\School\\classes.txt"));
         String testStr = "";
         int x, y;
         System.out.println(line);
@@ -290,7 +290,7 @@ public class Main {
         fileReader.close();
     }
     public static Course findCourse(int classID)  throws IOException {
-        Scanner fileReader = new Scanner(new File("classes.txt"));
+        Scanner fileReader = new Scanner(new File("c:\\Users\\Freak\\OneDrive\\Desktop\\CompSciA\\Earthbound\\School\\School\\classes.txt"));
         boolean search = true;
         int x, y;
         int classLength = 0;
