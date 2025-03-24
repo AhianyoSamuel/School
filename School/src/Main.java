@@ -240,6 +240,7 @@ public class Main {
                 case 2:
                     printWithLines("What is the student ID you are setting attendance for?");
                     int teacherIDAttendance = reader.nextInt();
+                    reader.nextLine(); // Consume the leftover newline character
 
                     Student targetStudentAttendance = findStudentById(teacherIDAttendance);
                     if (targetStudentAttendance == null) {
@@ -248,22 +249,18 @@ public class Main {
                     }
 
                     boolean attendanceSetting = true;
-                    while(attendanceSetting) {
+                    while (attendanceSetting) {
                         printWithLines("What date are you setting the attendance for?\nPlease Input this in the format MM-DD-YY");
                         String teacherDateAttendance = reader.nextLine();
                         printWithLines("What was the status of the student on this date?\nPresent | Tardy | Absent");
                         String teacherStatusAttendance = reader.nextLine();
 
-                        System.out.println();
-
-                        targetStudentAttendance.addAttendance(teacherIDAttendance, teacherDateAttendance, teacherStatusAttendance);
-                         printWithLines("Do you want to add another grade? [yes/no]");
+                        targetStudentAttendance.addAttendance(teacherIDAttendance, teacherStatusAttendance, teacherDateAttendance);
+                        printWithLines("Do you want to add another attendance record? [yes/no]");
                         String continueInput = reader.nextLine();
                         attendanceSetting = continueInput.equalsIgnoreCase("yes");
-
                     }
-
-
+                    break;
                 case 3:
                     break sigma;
             }
