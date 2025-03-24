@@ -15,26 +15,14 @@ public class Student {
     public Student(String newName, int gradYear) {
         name = newName;
         year = gradYear;
-        switch (gradYear) {
-            case 2025:
-                grade = 12;
-                break;
-            case 2026:
-                grade = 11;
-                break;
-            case 2027:
-                grade = 10;
-                break;
-            case 2028:
-                grade = 9;
-                break;
-            case 2029:
-                grade = 8; // this is only here so 8th graders can sign up for their first classes
-                break;
-            default:
-                grade = 0; //ERROR 
-                break;
-        }
+        grade = switch (gradYear) {
+            case 2025 -> 12;
+            case 2026 -> 11;
+            case 2027 -> 10;
+            case 2028 -> 9;
+            case 2029 -> 8; // this is only here so 8th graders can sign up for their first classes
+            default -> 0;//ERROR
+        };
         this.studentID = generateStudentID(); // Generate and store the student ID
         studentList.add(this);
     }

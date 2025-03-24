@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 //This is the main class that runs the program. It will be used to call other classes and methods.
 public class Main {
+
     static String line = "--------------------------------------";
     public static void main(String[] args) throws IOException {
         Scanner reader = new Scanner(System.in);
@@ -55,8 +56,11 @@ public class Main {
 
         //This a a preset for the student video
         //test the attendance system
+
+        printWithLines("DEBUG TESTING");
         student.addAttendance(student.getStudentID(), "2023-09-01", "Present");
         student.addAttendance(student.getStudentID(), "2023-09-02", "Absent");
+        printWithLines("DEBUG TESTING");
 
 
         //test the schedule system
@@ -131,45 +135,55 @@ public class Main {
                     printWithLines("[GPA]   "+ gpa);
                     break;
                 case 4:
-                    //registrationLoop:
-                    printWithLines("What classes would you like to register?\n"+line+"\n[Press ENTER] to see the list of classes\n[Enter a class ID] to apply\n[Press X] to go back");
+                    printWithLines("What classes would you like to register?\n" + line + "\n[Press ENTER] to see the list of classes\n[Enter a class ID] to apply\n[Press X] to go back");
                     boolean registering = true;
-                    while(registering){  
-                        
+                    while (registering) {
                         String x = reader.nextLine();
-                        if (x.toUpperCase().equals("X")){
+                        if (x.toUpperCase().equals("X")) {
                             registering = false;
-                        }else if (x.equals("")){
+                        } else if (x.equals("")) {
                             displayClassIDs();
                         } else {
                             int classID = Integer.parseInt(x);
                             Course newClass = findCourse(classID);
-                            newClass.year = student.getYear()-9;
+
+                            // Register for the NEXT year
+                            newClass.year = student.getYear() - 9 + 1; // Increment the year by 1 for next year
                             int classLength = newClass.blocks.length;
                             boolean space = false;
-                            for (int i=0;i<4;i++){
-                                int firstEmpty = 100;
-                                for (int j=0;j<4;j++){
-                                    if (student.sch.schedule[newClass.year+1][j][i].length() < 1){
-                                        firstEmpty = j;
+
+                            //chek if there is space in the schedule
+                            for (int block = 0; block < 4; block++) { //look through blocks
+                                for (int term = 0; term <= 4 - classLength; term++) { //look through terms
+                                    boolean isSpaceAvailable = true;
+
+                                    // Check if all required slots are empty
+                                    for (int k = 0; k < classLength; k++) {
+                                        if (!student.sch.schedule[newClass.year][term + k][block].isEmpty()) {
+                                            isSpaceAvailable = false;
+                                            break;
+                                        }
+                                    }
+
+                                    // If space is available, assign terms and blocks
+                                    if (isSpaceAvailable) {
+                                        for (int k = 0; k < classLength; k++) {
+                                            newClass.terms[k] = term + k + 1;
+                                            newClass.blocks[k] = block + 1;
+                                        }
+                                        student.sch.addCourse(newClass);
+                                        space = true;
                                         break;
                                     }
                                 }
-                                if (5-firstEmpty > classLength){
-                                    for (int k=0; k<classLength; k++){
-                                        newClass.terms[k] = firstEmpty+k+1;
-                                        newClass.blocks[k] = i+1;
-                                    }
-                                    student.sch.addCourse(newClass);
-                                    space = true;
-                                    break;
-                                }
+                                if (space) break;
                             }
-                            if (space){
+
+                            if (space) {
                                 student.sch.showSchedule(newClass.year);
                                 System.out.println("Registered: " + newClass.courseName);
                             } else {
-                                System.out.println("[Error: no space in schedule]"); //ERROR 
+                                System.out.println("[Error: no space in schedule]"); // ERROR
                                 System.out.println("[Try again]");
                             }
                         }
@@ -203,7 +217,7 @@ public class Main {
         teacher.displayDetails();
 
         sigma: while (true) {
-            printWithLines("What would you like to do?\nPress 1 to enter in a student's grades\nPress 2 to enter in a student's attendance\nPress 3 to end");
+            printWithLines("What would you like to do?\n[Press 1] to enter in a student's grades\n[Press 2] to enter in a student's attendance\n[Press 3] to end");
             int teacherChoice = reader.nextInt();
             switch (teacherChoice) {
                 case 1:
@@ -286,32 +300,32 @@ public class Main {
         fileReader.close();
     }
     public static Course findCourse(int classID)  throws IOException {
-        Scanner fileReader = new Scanner(new File("c:\\Users\\Freak\\OneDrive\\Desktop\\CompSciA\\Earthbound\\School\\School\\classes.txt"));
-        boolean search = true;
-        int x, y;
-        int classLength = 0;
-        String idStr, testStr; 
-        String className ="";
-        while (search){
-            testStr = fileReader.nextLine();
-            x = testStr.indexOf(']');
-            if (x != -1){
-                idStr = testStr.substring(1,x);
-                if (idStr.equals(classID+"")){
-                    search = false; 
-                    y = testStr.indexOf("\\");
-                    className = testStr.substring(x+1,y);
-                    classLength = Integer.parseInt(testStr.charAt(y+1)+"");
-                }        
-            }
-            if (testStr.equals("END")){
-                search = false;
-            }     
+        Course newClass;
+        try (Scanner fileReader = new Scanner(new File("c:\\Users\\Freak\\OneDrive\\Desktop\\CompSciA\\Earthbound\\School\\School\\classes.txt"))) {
+            boolean search = true;
+            int x, y;
+            int classLength = 0;
+            String idStr, testStr;
+            String className ="";
+            while (search){
+                testStr = fileReader.nextLine();
+                x = testStr.indexOf(']');
+                if (x != -1){
+                    idStr = testStr.substring(1,x);
+                    if (idStr.equals(classID+"")){
+                        search = false;
+                        y = testStr.indexOf("\\");
+                        className = testStr.substring(x+1,y);
+                        classLength = Integer.parseInt(testStr.charAt(y+1)+"");
+                    }
+                }
+                if (testStr.equals("END")){
+                    search = false;     
+                }
+            }   int[] terms = new int[classLength];
+            int[] blocks = new int[classLength];
+            newClass = new Course(className,-1,terms,blocks);
         }
-        int[] terms = new int[classLength];
-        int[] blocks = new int[classLength];
-        Course newClass = new Course(className,-1,terms,blocks);   
-        fileReader.close();
         return newClass;
     }
 
@@ -323,5 +337,4 @@ public class Main {
         }
     }
     return null; //return null if there is no student ERROR 
-}
-}
+}}
