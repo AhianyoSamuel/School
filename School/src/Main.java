@@ -51,16 +51,13 @@ public class Main {
         System.out.println(gradYear);
         Student student = new Student(name, gradYear);
 
-        // Create a randomized ID for the student
-        int studentID = student.generatestudentID();
-        System.out.print("Student Id: "+studentID);
         // test to see what the student id is System.out.print(studentID);
 
-        /* This a a preset for the student video
-        test the attendance system
-        student.addAttendance(studentID, "2023-09-01", "Present");
-        student.addAttendance(studentID, "2023-09-02", "Absent");
-        test the schedule system
+        //This a a preset for the student video
+        //test the attendance system
+        student.addAttendance(student.getStudentID(), "2023-09-01", "Present");
+        student.addAttendance(student.getStudentID(), "2023-09-02", "Absent");
+        //test the schedule system
         
     
         if (student.name.equals("Matthew Nienstedt")){
@@ -112,7 +109,7 @@ public class Main {
         student.sch.addGrade(95,2,3,4);
 
         }
-        */
+        
 
 
         skibidi: 
@@ -127,7 +124,7 @@ public class Main {
                     student.sch.showSchedule(showGradesYear-9); // make it so the user enters in a grade that makes sense but we get a grade from 0-3
                     break;
                 case 2:
-                    student.displayAttendance(studentID);
+                    student.displayAttendance(student.getStudentID());
                     break;
                 case 3:
                     float gpa = student.sch.getGPA();
@@ -186,23 +183,16 @@ public class Main {
     }
 
     
-     public static void teacherLoop() {
-
-        //put in variables before the code starts for teacher video
-
+    public static void teacherLoop() {
+        // Create students
         Student student1 = new Student("Samuel Ahianyo", 2026);
-        int samID = student1.generatestudentID();
-        System.out.println(samID);
+        System.out.println(student1.getStudentID());
         Student student2 = new Student("Jishnu Satapathy", 2027);
-        int jishnuID = student2.generatestudentID();
-        System.out.println(jishnuID);
+        System.out.println(student2.getStudentID());
         Student student3 = new Student("Matthew Niesntedt", 2026);
-        int matthewID = student3.generatestudentID();
-        System.out.println(matthewID);
+        System.out.println(student3.getStudentID());
         Student student4 = new Student("Nikola Momtchev", 2025);
-        int nikolaID = student4.generatestudentID();
-        System.out.println(nikolaID);
-        
+        System.out.println(student4.getStudentID());
 
         Scanner reader = new Scanner(System.in);
         System.out.println("Welcome Teacher! What is your full name?");
@@ -214,46 +204,42 @@ public class Main {
         teacher.displayDetails();
 
         sigma: while (true) {
-            System.out.println("What would you like to do?\n Press 1 to enter in a students grades");
+            System.out.println("What would you like to do?\nPress 1 to enter in a student's grades");
             int teacherChoice = reader.nextInt();
             switch (teacherChoice) {
                 case 1:
-            System.out.print("What is the student ID you are making a grade for? ");
-            int teacherInputGrade = reader.nextInt();
-            
-            // Retrieve the student object based on the ID
-            Student targetStudent = findStudentById(teacherInputGrade);
-            if (targetStudent == null) {
-                printWithLines("Student not found. Please try again.");
-                break;
-            }
+                    System.out.print("What is the student ID you are making a grade for? ");
+                    int teacherInputID = reader.nextInt();
 
-            boolean gradeSetting = true;
-            while (gradeSetting) { //hiwer
-                printWithLines("What grade did the student get?");
-                int teacherSetGrade = reader.nextInt();
-                printWithLines("What term did the student take your class?");
-                int teacherTermGrade = reader.nextInt();
-                printWithLines("What block did the student take your class?");
-                int teacherBlockGrade = reader.nextInt();
+                    // Retrieve the student object based on the ID
+                    Student targetStudent = findStudentById(teacherInputID);
+                    if (targetStudent == null) {
+                        printWithLines("Student not found. Please try again.");
+                        break;
+                    }
 
-                // Add the grade to the student's schedule
-                targetStudent.sch.addGrade(teacherSetGrade, teacherTermGrade, teacherBlockGrade, teacherID);
-                
+                    boolean gradeSetting = true;
+                    while (gradeSetting) {
+                        printWithLines("What grade did the student get?");
+                        int teacherSetGrade = reader.nextInt();
+                        printWithLines("What term did the student take your class?");
+                        int teacherTermGrade = reader.nextInt();
+                        printWithLines("What block did the student take your class?");
+                        int teacherBlockGrade = reader.nextInt();
 
-                printWithLines("Do you want to add another grade? [yes/no]");
-                String continueInput = reader.next();
-                gradeSetting = continueInput.equalsIgnoreCase("yes");
-            }
-            break;
+                        // Add the grade to the student's schedule
+                        targetStudent.sch.addGrade(teacherSetGrade, teacherTermGrade, teacherBlockGrade, teacherID);
+
+                        printWithLines("Do you want to add another grade? [yes/no]");
+                        String continueInput = reader.next();
+                        gradeSetting = continueInput.equalsIgnoreCase("yes");
+                    }
+                    break;
                 case 4:
                     break sigma;
             }
-            reader.close();
-        } 
+        }
     }
-
-
 
     public static void displayClassIDs()  throws IOException {
         Scanner fileReader = new Scanner(new File("classes.txt"));

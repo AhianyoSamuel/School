@@ -6,13 +6,11 @@ public class Student {
     public String name;
     public int year;
     public int grade;
-    public int studentID;
-    public ArrayList<String> attendanceRecords = new ArrayList<String>();
+    public int studentID; //store the student id hre
+    public ArrayList<String> attendanceRecords = new ArrayList<>();
     Schedule sch = new Schedule();
 
-
     public static ArrayList<Student> studentList = new ArrayList<>();
-    
 
     public Student(String newName, int gradYear) {
         name = newName;
@@ -31,35 +29,34 @@ public class Student {
                 grade = 9;
                 break;
             case 2029:
-                grade = 8; //this is only here so 8th graders can sign up for their first classes
+                grade = 8; // this is only here so 8th graders can sign up for their first classes
                 break;
             default:
                 grade = 0;
                 break;
         }
-        this.studentID = generatestudentID();
+        this.studentID = generateStudentID(); // Generate and store the student ID
         studentList.add(this);
     }
+
     public int getYear() {
         return grade;
     }
 
-    public int generatestudentID(){
+    // Generate a random student ID
+    private int generateStudentID() {
         Random random = new Random();
-        return random.nextInt(2000);
+        return random.nextInt(2000); // Generate a random ID between 0 and 1999
     }
 
-    public int getStudentID(){
+    // Getter for the student ID
+    public int getStudentID() {
         return studentID;
     }
 
-    
-
-    
-    // everything past here is for attendance
+    // Attendance methods
     public void addAttendance(int id, String reason, String date) {
-        String attendanceRecord = "The student with the ID: " + id + " has been recorded as '" + reason + "' on "
-                + date;
+        String attendanceRecord = "The student with the ID: " + id + " has been recorded as '" + reason + "' on " + date;
         attendanceRecords.add(attendanceRecord);
         System.out.println("You have added: " + attendanceRecord);
     }
