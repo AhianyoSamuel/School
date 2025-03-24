@@ -57,9 +57,9 @@ public class Main {
         //test the attendance system
         student.addAttendance(student.getStudentID(), "2023-09-01", "Present");
         student.addAttendance(student.getStudentID(), "2023-09-02", "Absent");
+
+
         //test the schedule system
-        
-    
         if (student.name.equals("Matthew Nienstedt")){
 
         int[] terms1 = { 1, 2 ,3};
@@ -204,16 +204,16 @@ public class Main {
         teacher.displayDetails();
 
         sigma: while (true) {
-            System.out.println("What would you like to do?\nPress 1 to enter in a student's grades");
+            printWithLines("What would you like to do?\nPress 1 to enter in a student's grades\nPress 2 to enter in a student's attendance\nPress 3 to end");
             int teacherChoice = reader.nextInt();
             switch (teacherChoice) {
                 case 1:
                     printWithLines("What is the student ID you are making a grade for?");
-                    int teacherInputID = reader.nextInt();
+                    int teacherIDGrade = reader.nextInt();
 
                     // Retrieve the student object based on the ID
-                    Student targetStudent = findStudentById(teacherInputID);
-                    if (targetStudent == null) {
+                    Student targetStudentGrade = findStudentById(teacherIDGrade);
+                    if (targetStudentGrade == null) {
                         printWithLines("Student not found. Please try again.");
                         break;
                     }
@@ -230,14 +230,41 @@ public class Main {
                         int teacherBlockGrade = reader.nextInt();
 
                         // Add the grade to the student's schedule
-                        targetStudent.sch.addGrade(teacherSetGrade, teacherYearGrade, teacherTermGrade, teacherBlockGrade);
+                        targetStudentGrade.sch.addGrade(teacherSetGrade, teacherYearGrade-9, teacherTermGrade, teacherBlockGrade);//include minus 9 because the year is from 0-3
 
                         printWithLines("Do you want to add another grade? [yes/no]");
                         String continueInput = reader.next();
                         gradeSetting = continueInput.equalsIgnoreCase("yes");
                     }
                     break;
-                case 4:
+                case 2:
+                    printWithLines("What is the student ID you are setting attendance for?");
+                    int teacherIDAttendance = reader.nextInt();
+
+                    Student targetStudentAttendance = findStudentById(teacherIDAttendance);
+                    if (targetStudentAttendance == null) {
+                        printWithLines("Student not found. Please try again.");
+                        break;
+                    }
+
+                    boolean attendanceSetting = true;
+                    while(attendanceSetting) {
+                        printWithLines("What date are you setting the attendance for?\nPlease Input this in the format MM-DD-YY");
+                        String teacherDateAttendance = reader.nextLine();
+                        printWithLines("What was the status of the student on this date?\nPresent | Tardy | Absent");
+                        String teacherStatusAttendance = reader.nextLine();
+
+                        System.out.println();
+
+                        targetStudentAttendance.addAttendance(teacherIDAttendance, teacherDateAttendance, teacherStatusAttendance);
+                         printWithLines("Do you want to add another grade? [yes/no]");
+                        String continueInput = reader.nextLine();
+                        attendanceSetting = continueInput.equalsIgnoreCase("yes");
+
+                    }
+
+
+                case 3:
                     break sigma;
             }
         }
