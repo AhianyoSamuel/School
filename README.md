@@ -51,4 +51,6 @@
 - Duplicate student IDs will not be allowed.
 - If a student tries to enroll in more than 8 classes, an error message will be shown.
 
+## How to navigate and Use
+
 *Created by Samuel Ahianyo, Jishnu Satapathy, Matthew Nienstedt, and Nikola Momtchev*
