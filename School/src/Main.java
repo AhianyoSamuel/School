@@ -210,8 +210,8 @@ public class Main {
                     printWithLines("What is the student ID you are making a grade for?");
                     int teacherIDGrade = reader.nextInt();
 
-                    // Retrieve the student object based on the ID
-                    Student targetStudentGrade = findStudentById(teacherIDGrade);
+                    
+                    Student targetStudentGrade = findStudentById(teacherIDGrade); //get the student by using their id
                     if (targetStudentGrade == null) {
                         printWithLines("Student not found. Please try again."); //ERROR
                         break;
